@@ -1,6 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
+const { useState } = React
+
 const Header = styled.header`
   font-size: 1.5rem;
   height: 2rem;
@@ -43,13 +45,19 @@ const Preview = styled.div`
 `;
 
 export const Editor: React.FC = () => {
-  return <>
-    <Header>
-      Markdown Editor
-    </Header>
-    <Wrapper>
-      <TextArea value="テキスト入力エリア"></TextArea>
-      <Preview>プレビューエリア</Preview>
-    </Wrapper>
-  </>;
+  const [text, setText] = useState<string>('init value');
+  return (
+    <>
+      <Header>Markdown Editor</Header>
+      <Wrapper>
+        <TextArea
+          onChange={(event) => {
+            setText(event.target.value)
+          }}
+          value={text}
+        ></TextArea>
+        <Preview>プレビューエリア</Preview>
+      </Wrapper>
+    </>
+  );
 }
