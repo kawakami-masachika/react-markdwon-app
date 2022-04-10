@@ -1,8 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import { useStateWithStorage } from '../hooks/use_state_with_storage';
 
-const { useState } = React
-
+const StorageKey = 'pages/editor:text'
 const Header = styled.header`
   font-size: 1.5rem;
   height: 2rem;
@@ -45,14 +45,15 @@ const Preview = styled.div`
 `;
 
 export const Editor: React.FC = () => {
-  const [text, setText] = useState<string>('init value');
+  const [text, setText] = useStateWithStorage('', StorageKey);
   return (
     <>
       <Header>Markdown Editor</Header>
       <Wrapper>
         <TextArea
           onChange={(event) => {
-            setText(event.target.value)
+            const ChangeText = event.target.value;
+            setText(ChangeText);
           }}
           value={text}
         ></TextArea>
